@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 
-def train_val_test_split(df, target_col="column", test_size=0.2, random_state=42):
+def train_val_test_split(df, target_col="column", test_size=0.3, random_state=42):
     """Split the dataframe into train, validation and test set
 
     - train set is used  to fir model
@@ -20,7 +20,7 @@ def train_val_test_split(df, target_col="column", test_size=0.2, random_state=42
 
     # Split remaining data into validation and test sets
     X_val, X_test, y_val, y_test = train_test_split(
-        X_test, y_test, test_size=test_size, random_state=random_state
+        X_test, y_test, test_size=0.5, random_state=random_state
     )
 
     return X_train, X_val, X_test, y_train, y_val, y_test
