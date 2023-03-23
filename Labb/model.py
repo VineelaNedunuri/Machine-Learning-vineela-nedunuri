@@ -51,7 +51,6 @@ def scale_features(X_train, X_val, X_test, scale_type='standard'):
 # Grid searchCV  for each model with their accuracy
 def grid_search(model, param_grid, X_train, y_train, X_val, y_val, score_file):
 
-    score_file = 'results/accuracy_scores.txt'
 
     # to create a grid search object and fit that object to training data
     classifier= GridSearchCV(estimator=model, param_grid=param_grid, cv=5, scoring="accuracy")
@@ -71,12 +70,12 @@ def grid_search(model, param_grid, X_train, y_train, X_val, y_val, score_file):
 
     # save the accuracy score to a file 
     with open(score_file, 'a') as f:
-        f.write(f'{type(model).__name__}: {round(accuracy,2)}\n')
-
-    # print the  classification report for the model
+        f.write(f'{type(model).__name__}: {accuracy:.2f}\n')
+    
+    #print classification report
     print(classification_report(y_val, y_pred))
     cm = confusion_matrix(y_val, y_pred)
     ConfusionMatrixDisplay(cm, display_labels=["Yes", "No"]).plot()
-    return cm
+
 
 
