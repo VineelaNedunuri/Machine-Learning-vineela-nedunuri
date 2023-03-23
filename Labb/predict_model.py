@@ -4,7 +4,7 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import LinearSVC
+from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
@@ -46,7 +46,7 @@ def scale_features(scale_type='standard'):
  # Create pipelines
     pipe_logistic = Pipeline([("scaler", scaler), ("LR", LogisticRegression())])
     pipe_KNN = Pipeline([("scaler", scaler), ("KNN", KNeighborsClassifier())])
-    pipe_SVM = Pipeline([("scaling", scaler), ("SVM", LinearSVC())])
+    pipe_SVM = Pipeline([("scaling", scaler), ("SVM", SVC())])
     pipe_tree = Pipeline([("scaling", scaler), ("DT", DecisionTreeRegressor())])
     pipe_forest = Pipeline([("scaling", scaler), ("RF", RandomForestClassifier())])
 
@@ -83,10 +83,9 @@ def grid_search(pipeline,param_grid, X_train, y_train, X_val, y_val, score_file)
     # Check best parameters for each model
     print(f'Best parameters: {grid_search.best_params_}')
 
-
     # save the accuracy score to a file 
     with open(score_file, 'a') as f:
-        f.write(f'{type(model).__name__}: {accuracy * 100:.2f}\n')
+        f.write(f'Dataset1: Standardization \n{type(pipeline).__name__}: {accuracy * 100:.2f}\n')
     
     
     
