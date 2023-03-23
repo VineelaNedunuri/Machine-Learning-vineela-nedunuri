@@ -5,7 +5,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
-from sklearn.svm import LinearSVC
+from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import  accuracy_score
@@ -46,7 +46,7 @@ def scale_features(scale_type='standard'):
  # Create pipelines
     pipe_logistic = Pipeline([("scaler", scaler), ("LR", LogisticRegression())])
     pipe_KNN = Pipeline([("scaler", scaler), ("KNN", KNeighborsClassifier())])
-    pipe_svm = Pipeline([("scaling", scaler), ("SVM", LinearSVC())])
+    pipe_svm = Pipeline([("scaling", scaler), ("SVM", SVC())])
     pipe_forest = Pipeline([("scaling", scaler), ("RF", RandomForestClassifier())])
     pipe_Gaussian = Pipeline([("scaling", scaler), ("NB", GaussianNB())])
 
@@ -54,7 +54,7 @@ def scale_features(scale_type='standard'):
     pipelines = {
         'Logistic Regression': pipe_logistic,
         'K-Nearest Neighbor': pipe_KNN,
-        'Support vector machines linear': pipe_svm,
+        'Support vector machines': pipe_svm,
         'Random Forest': pipe_forest,
         'Gaussian Naive Bayes': pipe_Gaussian
     }
