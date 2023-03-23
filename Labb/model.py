@@ -44,9 +44,10 @@ def scale_features(X_train, X_val, X_test, scale_type='standard'):
         raise ValueError('scale must be standard or minmax')
     
     #  fit and transform the training,  transform both validation and test sets
-    scaled_X_train = scaler.fit_transform(X_train)
-    scaled_X_val = scaler.transform(X_val)
-    scaled_X_test = scaler.transform(X_test)
+    #scaled_X_train = scaler.fit_transform(X_train)
+    #scaled_X_val = scaler.transform(X_val)
+    #scaled_X_test = scaler.transform(X_test)
+    
 
     return scaled_X_train, scaled_X_val, scaled_X_test
 
