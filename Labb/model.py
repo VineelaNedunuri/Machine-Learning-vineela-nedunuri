@@ -15,6 +15,8 @@ def split_data(df, target_col="column", test_size=0.3, random_state=42):
     - test set is used to evaluate the final model performance after training
 
     """
+
+
     X, y = df.drop(target_col, axis=1), df[target_col]
 
     # Split data into train and test sets
@@ -24,10 +26,11 @@ def split_data(df, target_col="column", test_size=0.3, random_state=42):
 
     # Split remaining data into validation and test sets
     X_val, X_test, y_val, y_test = train_test_split(
-        X_test, y_test, test_size=0.5, random_state=random_state
+        X_test, y_test, test_size=0.2, random_state=random_state
     )
 
     return X_train, X_val, X_test, y_train, y_val, y_test
+
 
 
 def scale_features(X_train, X_val, X_test, scale_type='standard'):
@@ -64,17 +67,19 @@ def grid_search(model, param_grid, X_train, y_train, X_val, y_val, score_file):
    
     # Calculate evaluation score
     accuracy= accuracy_score(y_val, y_pred)
+    print(f"Accuracy Score: {accuracy * 100:.2f}%")
     
     # Check best parameters for each model
     print(f'Best parameters: {classifier.best_params_}')
 
     # save the accuracy score to a file 
     with open(score_file, 'a') as f:
-        f.write(f'{type(model).__name__}: {accuracy:.2f}\n')
+        f.write(f'{type(model).__name__}: {accuracy * 100:.2f}\n')
     
     #print classification report
-    print(classification_report(y_val, y_pred))
+    print(f'CLASSIFICATION REPORT:\n{classification_report(y_val, y_pred)}')
     cm = confusion_matrix(y_val, y_pred)
+    print(f"Confusion Matrix: \n ",cm)
     ConfusionMatrixDisplay(cm, display_labels=["Yes", "No"]).plot()
 
 
