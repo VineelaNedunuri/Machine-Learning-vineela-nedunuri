@@ -2,3 +2,6 @@
 
 LogisticRegression: 0.70
 KNeighborsClassifier: 0.66
+LogisticRegression: 70.02
+LogisticRegression: 70.42
+LogisticRegression: 70.42
