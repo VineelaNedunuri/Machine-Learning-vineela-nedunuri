@@ -5,7 +5,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
-#from sklearn.svm import LinearSVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
@@ -64,7 +63,7 @@ def scale_features(scale_type='standard'):
 
 
 # Grid searchCV  for each model with their accuracy
-def grid_search(pipeline,param_grid, X_train, y_train, X_val, y_val, score_file):
+def grid_search(pipeline,param_grid, X_train, y_train, X_val, y_val,dataset_name='dataset1',score_file='results/accuracy_scores.txt'):
 
     grid_search= GridSearchCV(estimator=pipeline, param_grid=param_grid, scoring="accuracy", cv=3,error_score='raise')
 
@@ -86,7 +85,7 @@ def grid_search(pipeline,param_grid, X_train, y_train, X_val, y_val, score_file)
 
     # save the accuracy score to a file 
     with open(score_file, 'a') as f:
-        f.write(f'model: {accuracy * 100:.2f}%\n')
+        f.write(f'{dataset_name}: {accuracy * 100:.2f}%\n')
     
     
     
