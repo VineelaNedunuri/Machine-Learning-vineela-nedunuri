@@ -5,7 +5,8 @@ from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
-from sklearn.svm import LinearSVC
+#from sklearn.svm import LinearSVC
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import  accuracy_score
@@ -46,7 +47,7 @@ def scale_features(scale_type='standard'):
  # Create pipelines
     pipe_logistic = Pipeline([("scaler", scaler), ("LR", LogisticRegression())])
     pipe_KNN = Pipeline([("scaler", scaler), ("KNN", KNeighborsClassifier())])
-    pipe_svm = Pipeline([("scaling", scaler), ("SVM", LinearSVC())])
+    pipe_tree= Pipeline([("scaling", scaler), ("DT", DecisionTreeClassifier())])
     pipe_forest = Pipeline([("scaling", scaler), ("RF", RandomForestClassifier())])
     pipe_Gaussian = Pipeline([("scaling", scaler), ("NB", GaussianNB())])
 
@@ -54,7 +55,7 @@ def scale_features(scale_type='standard'):
     pipelines = {
         'Logistic Regression': pipe_logistic,
         'K-Nearest Neighbor': pipe_KNN,
-        'Support vector machines linear': pipe_svm,
+        'Decision Tree': pipe_tree,
         'Random Forest': pipe_forest,
         'Gaussian Naive Bayes': pipe_Gaussian
     }
@@ -85,7 +86,7 @@ def grid_search(pipeline,param_grid, X_train, y_train, X_val, y_val, score_file)
 
     # save the accuracy score to a file 
     with open(score_file, 'a') as f:
-        f.write(f'{type(model).__name__}: {accuracy * 100:.2f}%\n')
+        f.write(f'model: {accuracy * 100:.2f}%\n')
     
     
     
