@@ -1,2 +1,21 @@
 
 dataset1: 70.41%
+dataset1: 68.08%
+dataset1: 69.43%
+dataset1: 70.44%
+dataset1: 68.47%
+dataset1: 70.40%
+dataset1: 68.19%
+dataset1: 69.43%
+dataset1: 70.47%
+dataset1: 68.47%
+dataset2: 72.25%
+dataset2: 65.47%
+dataset2: 73.19%
+dataset2: 73.63%
+dataset2: 59.05%
+dataset2: 69.80%
+dataset2: 60.87%
+dataset2: 73.19%
+dataset2: 73.57%
+dataset2: 58.99%
