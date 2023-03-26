@@ -9,6 +9,8 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import  accuracy_score,f1_score
+from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
+
 
 
 def split_data(df, target_col="column", test_size=0.2, random_state=42):
@@ -91,10 +93,12 @@ def grid_search(pipeline,param_grid, X_train, y_train, X_val, y_val,dataset_name
     
     
 
-def evaluate_classification(y_test, y_pred, labels = ["No", "Yes"]):
+def evaluate_classification(y_test, y_pred,labels = ["No", "Yes"]):
 
     print(f'CLASSIFICATION REPORT:\n{classification_report(y_test, y_pred)}')
+    print("................................\n")
     cm = confusion_matrix(y_test, y_pred)
     print(f"Confusion Matrix: \n ",cm)
+    print("................................\n")
     ConfusionMatrixDisplay(cm, display_labels=labels).plot()
 
