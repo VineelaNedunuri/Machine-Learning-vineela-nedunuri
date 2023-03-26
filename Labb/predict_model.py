@@ -93,12 +93,12 @@ def grid_search(pipeline,param_grid, X_train, y_train, X_val, y_val,dataset_name
     
     
 
-def evaluate_classification(y_test, y_pred,labels = ["No", "Yes"]):
+def evaluate_classification(y_test, y_pred):
 
     print(f'CLASSIFICATION REPORT:\n{classification_report(y_test, y_pred)}')
     print("................................\n")
     cm = confusion_matrix(y_test, y_pred)
     print(f"Confusion Matrix: \n ",cm)
     print("................................\n")
-    ConfusionMatrixDisplay(cm, display_labels=labels).plot()
+    ConfusionMatrixDisplay(cm, display_labels=["No", "Yes"]).plot()
 
