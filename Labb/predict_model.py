@@ -8,7 +8,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import  accuracy_score
+from sklearn.metrics import  accuracy_score,f1_score
 from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
 
 
@@ -65,36 +65,37 @@ def scale_features(scale_type='standard'):
 # Grid searchCV  for each model with their accuracy
 def grid_search(pipeline,param_grid, X_train, y_train, X_val, y_val,dataset_name='dataset1',score_file='results/accuracy_scores.txt'):
 
-    grid_search= GridSearchCV(estimator=pipeline, param_grid=param_grid, scoring="accuracy", cv=3,error_score='raise')
+    grid_search= GridSearchCV(estimator=pipeline, param_grid=param_grid, scoring="f1", cv=3,error_score='raise')
 
     # to fit that object to training data
     grid_search.fit(X_train, y_train)
 
-    # extract the best model from the grid search object
-    model = grid_search.best_estimator_
 
     # predictions on validation data
-    y_pred = model.predict(X_val)
+    y_pred =grid_search.predict(X_val)
    
+    
     # Calculate evaluation score
     accuracy= accuracy_score(y_val, y_pred)
     print(f"Accuracy Score: {accuracy * 100:.2f}%")
-    
+
+   # calculate evaluation score
+    f1 = f1_score(y_val, y_pred)
+    print(f"F1 Score: {f1:.2f}")
+
     # Check best parameters for each model
     print(f'Best parameters: {grid_search.best_params_}')
 
     # save the accuracy score to a file 
     with open(score_file, 'a') as f:
-        f.write(f'{dataset_name}: {accuracy * 100:.2f}%\n')
+        f.write(f'{dataset_name}: F1 score - {f1:.2f}, accuracy-{accuracy * 100:.2f}% \n')
     
     
-    
-    
-    
-    #print classification report
-    #print(f'CLASSIFICATION REPORT:\n{classification_report(y_val, y_pred)}')
-    #cm = confusion_matrix(y_val, y_pred)
-    #print(f"Confusion Matrix: \n ",cm)
-    #ConfusionMatrixDisplay(cm, display_labels=["Yes", "No"]).plot()
 
+def evaluate_classification(y_test, y_pred, labels = ["No", "Yes"]):
+
+    print(f'CLASSIFICATION REPORT:\n{classification_report(y_test, y_pred)}')
+    cm = confusion_matrix(y_test, y_pred)
+    print(f"Confusion Matrix: \n ",cm)
+    ConfusionMatrixDisplay(cm, display_labels=labels).plot()
 
