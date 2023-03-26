@@ -46,10 +46,10 @@ def scale_features(scale_type='standard'):
         raise ValueError('scale must be standard or minmax')
  # Create pipelines
     pipe_logistic = Pipeline([("scaler", scaler), ("LR", LogisticRegression(random_state=42))])
-    pipe_KNN = Pipeline([("scaler", scaler), ("KNN", KNeighborsClassifier(random_state= 42))])
+    pipe_KNN = Pipeline([("scaler", scaler), ("KNN", KNeighborsClassifier())])
     pipe_tree= Pipeline([("scaling", scaler), ("DT", DecisionTreeClassifier(random_state=42))])
     pipe_forest = Pipeline([("scaling", scaler), ("RF", RandomForestClassifier(random_state=42))])
-    pipe_Gaussian = Pipeline([("scaling", scaler), ("NB", GaussianNB(random_sate=42))])
+    pipe_Gaussian = Pipeline([("scaling", scaler), ("NB", GaussianNB())])
 
     # Return pipelines as a dictionary
     pipelines = {
@@ -90,14 +90,14 @@ def grid_search(pipeline,param_grid, X_train, y_train, X_val, y_val,dataset_name
     # save the accuracy score to a file 
     with open(score_file, 'a') as f:
         f.write(f'{dataset_name}: F1 score - {f1:.2f}, accuracy-{accuracy * 100:.2f}% \n')
-    
-    
 
-def evaluate_classification(y_test, y_pred):
+    return y_pred
 
-    print(f'CLASSIFICATION REPORT:\n{classification_report(y_test, y_pred)}')
+
+def evaluate_classification(y_val, y_pred):
+    print(f'CLASSIFICATION REPORT:\n{classification_report(y_val, y_pred)}')
     print("................................\n")
-    cm = confusion_matrix(y_test, y_pred)
+    cm = confusion_matrix(y_val, y_pred)
     print(f"Confusion Matrix: \n ",cm)
     print("................................\n")
     ConfusionMatrixDisplay(cm, display_labels=["No", "Yes"]).plot()
