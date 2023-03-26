@@ -9,7 +9,6 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import  accuracy_score,f1_score
-from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
 
 
 def split_data(df, target_col="column", test_size=0.2, random_state=42):
@@ -44,11 +43,11 @@ def scale_features(scale_type='standard'):
     else:
         raise ValueError('scale must be standard or minmax')
  # Create pipelines
-    pipe_logistic = Pipeline([("scaler", scaler), ("LR", LogisticRegression())])
-    pipe_KNN = Pipeline([("scaler", scaler), ("KNN", KNeighborsClassifier())])
-    pipe_tree= Pipeline([("scaling", scaler), ("DT", DecisionTreeClassifier())])
-    pipe_forest = Pipeline([("scaling", scaler), ("RF", RandomForestClassifier())])
-    pipe_Gaussian = Pipeline([("scaling", scaler), ("NB", GaussianNB())])
+    pipe_logistic = Pipeline([("scaler", scaler), ("LR", LogisticRegression(random_state=42))])
+    pipe_KNN = Pipeline([("scaler", scaler), ("KNN", KNeighborsClassifier(random_state= 42))])
+    pipe_tree= Pipeline([("scaling", scaler), ("DT", DecisionTreeClassifier(random_state=42))])
+    pipe_forest = Pipeline([("scaling", scaler), ("RF", RandomForestClassifier(random_state=42))])
+    pipe_Gaussian = Pipeline([("scaling", scaler), ("NB", GaussianNB(random_sate=42))])
 
     # Return pipelines as a dictionary
     pipelines = {
