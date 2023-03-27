@@ -14,3 +14,8 @@ dataset2_standard: F1 score - 0.65, accuracy-65.47%
 dataset2_standard: F1 score - 0.71, accuracy-72.79% 
 dataset2_standard: F1 score - 0.72, accuracy-73.54% 
 dataset2_standard: F1 score - 0.42, accuracy-59.05% 
+dataset2_minax: F1 score - 0.69, accuracy-69.80% 
+dataset2_minax: F1 score - 0.60, accuracy-60.87% 
+dataset2_minax: F1 score - 0.71, accuracy-72.80% 
+dataset2_minax: F1 score - 0.72, accuracy-73.54% 
+dataset2_minax: F1 score - 0.42, accuracy-58.99% 
