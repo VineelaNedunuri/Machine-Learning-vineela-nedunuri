@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.pipeline import Pipeline
@@ -66,7 +67,7 @@ def scale_features(scale_type='standard'):
 # Grid searchCV  for each model with their accuracy
 def grid_search(pipeline,param_grid, X_train, y_train, X_val, y_val,dataset_name='dataset1',score_file='results/accuracy_scores.txt'):
 
-    grid_search= GridSearchCV(estimator=pipeline, param_grid=param_grid, scoring="f1", cv=3,error_score='raise')
+    grid_search= GridSearchCV(estimator=pipeline, param_grid=param_grid, scoring="f1",cv=3, verbose=1,error_score='raise')
 
     # to fit that object to training data
     grid_search.fit(X_train, y_train)
@@ -74,8 +75,7 @@ def grid_search(pipeline,param_grid, X_train, y_train, X_val, y_val,dataset_name
 
     # predictions on validation data
     y_pred =grid_search.predict(X_val)
-   
-    
+
     # Calculate evaluation score
     accuracy= accuracy_score(y_val, y_pred)
     print(f"Accuracy Score: {accuracy * 100:.2f}%")
@@ -93,12 +93,20 @@ def grid_search(pipeline,param_grid, X_train, y_train, X_val, y_val,dataset_name
 
     return y_pred
 
+
+
+ 
+
 # To calculate the classification report and confusion matrix
-def evaluate_classification(y_val, y_pred):
+def evaluate_classification(model_name,y_val, y_pred):
     print(f'CLASSIFICATION REPORT:\n{classification_report(y_val, y_pred)}')
     print("................................\n")
     cm = confusion_matrix(y_val, y_pred)
     print(f"Confusion Matrix: \n ",cm)
     print("................................\n")
-    ConfusionMatrixDisplay(cm, display_labels=["No", "Yes"]).plot()
+    matrix= ConfusionMatrixDisplay(cm, display_labels=["No", "Yes"])
+    matrix.plot()
+    plt.title(f"{model_name} Confusion Matrix")
+    plt.show()
+    return cm
 
