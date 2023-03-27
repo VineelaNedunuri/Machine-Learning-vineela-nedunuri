@@ -93,7 +93,7 @@ def grid_search(pipeline,param_grid, X_train, y_train, X_val, y_val,dataset_name
 
     return y_pred
 
-
+# To calculate the classification report and confusion matrix
 def evaluate_classification(y_val, y_pred):
     print(f'CLASSIFICATION REPORT:\n{classification_report(y_val, y_pred)}')
     print("................................\n")
